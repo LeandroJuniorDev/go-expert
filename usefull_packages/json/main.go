@@ -36,6 +36,7 @@ func main() {
 	}
 	fmt.Printf("Number: %s, Balance: %f\n", account.Number, account.Balance)
 
+	accountJson = []byte(`{"number":"987654","balance":2000}`)
 	err = json.NewDecoder(strings.NewReader(string(accountJson))).Decode(&account)
 	if err != nil {
 		panic(err)
