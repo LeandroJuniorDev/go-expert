@@ -14,13 +14,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer cf.Close()
 
 	size, err := cf.Write([]byte("Hello, word!"))
 	if err != nil {
 		panic(err)
 	}
 
-	_ = cf.Close()
 
 	fmt.Printf("File successfuly created: size = %d bytes\n", size)
 
@@ -37,6 +37,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer of.Close()
 
 	reader := bufio.NewReader(of)
 	buffer := make([]byte, 3)
@@ -47,7 +48,6 @@ func main() {
 		}
 		fmt.Println(string(buffer[:n]))
 	}
-	_ = of.Close()
 
 	//Detele file
 	err = os.Remove(fn)

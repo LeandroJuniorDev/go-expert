@@ -11,6 +11,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	defer req.Body.Close()
 
 	res, err := io.ReadAll(req.Body)
 	if err != nil {
@@ -18,6 +19,5 @@ func main() {
 	}
 
 	println(string(res))
-	req.Body.Close()
 }
 
