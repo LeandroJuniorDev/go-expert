@@ -1,23 +1,20 @@
 package main
 
 import (
-	"io"
 	"net/http"
 )
 
 func main() {
 
-	req, err := http.Get("https://google.com")
-	if err != nil {
-		panic(err)
-	}
-	defer req.Body.Close()
+	http.HandleFunc("/", findZipCode)
+	http.ListenAndServe(":8080", nil)
+}
 
-	res, err := io.ReadAll(req.Body)
-	if err != nil {
-		panic(err)
+func findZipCode(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		w.WriteHeader(http.StatusNotFound)
+		return
 	}
-
-	println(string(res))
+	w.Write([]byte( "Hello, Word!"))
 }
 
